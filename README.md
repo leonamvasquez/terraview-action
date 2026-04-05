@@ -1,11 +1,19 @@
 <p align="center">
-  <img src="https://raw.githubusercontent.com/leonamvasquez/terraview/main/assets/terraview-logo.png" alt="TerraView" width="100" />
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/leonamvasquez/terraview/main/.github/assets/terraview-logo-dark-theme.png" width="340" />
+    <source media="(prefers-color-scheme: light)" srcset="https://raw.githubusercontent.com/leonamvasquez/terraview/main/.github/assets/terraview-logo-white-theme.png" width="340" />
+    <img alt="TerraView" src="https://raw.githubusercontent.com/leonamvasquez/terraview/main/.github/assets/terraview-logo-white-theme.png" width="340" />
+  </picture>
 </p>
 
-<h1 align="center">TerraView Action</h1>
+<p align="center">
+  <strong>GitHub Action for scanning Terraform plans with AI-powered contextual analysis</strong>
+</p>
 
 <p align="center">
-  GitHub Action for scanning Terraform plans with <a href="https://github.com/leonamvasquez/terraview">TerraView</a> — static analysis + optional AI contextual analysis.
+  <a href="https://github.com/leonamvasquez/terraview/releases/latest"><img src="https://img.shields.io/github/v/release/leonamvasquez/terraview?label=terraview&color=7c3aed" alt="Latest Release" /></a>
+  <a href="https://github.com/marketplace/actions/terraview"><img src="https://img.shields.io/badge/GitHub%20Marketplace-TerraView-7c3aed" alt="GitHub Marketplace" /></a>
+  <a href="https://github.com/leonamvasquez/terraview/blob/main/LICENSE"><img src="https://img.shields.io/github/license/leonamvasquez/terraview?color=7c3aed" alt="License" /></a>
 </p>
 
 ## Prerequisites
