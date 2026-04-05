@@ -1,9 +1,9 @@
-name: 'TerraView Security Scan'
+name: 'TerraView'
 description: 'Scan Terraform plans for security issues and misconfigurations using TerraView'
 author: 'Leonam Vasquez'
 branding:
   icon: 'shield'
-  color: 'red'
+  color: 'purple'
 
 inputs:
   plan:
@@ -29,6 +29,10 @@ inputs:
     description: 'Output format: pretty, json, sarif, html, markdown'
     required: false
     default: 'pretty'
+  output-dir:
+    description: 'Directory to write output files (SARIF writes review.sarif.json, HTML writes report/). Defaults to working directory.'
+    required: false
+    default: ''
   fail-on:
     description: 'Minimum severity to fail the job: HIGH (default), CRITICAL, NONE'
     required: false
@@ -67,5 +71,6 @@ runs:
         TV_MODEL: ${{ inputs.model }}
         TV_API_KEY: ${{ inputs.api-key }}
         TV_FORMAT: ${{ inputs.format }}
+        TV_OUTPUT_DIR: ${{ inputs.output-dir }}
         TV_FAIL_ON: ${{ inputs.fail-on }}
         TV_ARGS: ${{ inputs.args }}

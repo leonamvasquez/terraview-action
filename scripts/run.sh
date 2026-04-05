@@ -8,6 +8,10 @@ if [ -n "${TV_FORMAT:-}" ]; then
   ARGS+=("--format" "$TV_FORMAT")
 fi
 
+if [ -n "${TV_OUTPUT_DIR:-}" ]; then
+  ARGS+=("--output" "$TV_OUTPUT_DIR")
+fi
+
 if [ -n "${TV_PROVIDER:-}" ]; then
   ARGS+=("--provider" "$TV_PROVIDER")
 fi

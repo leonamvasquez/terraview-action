@@ -1,6 +1,27 @@
-# terraview-action
+<p align="center">
+  <img src="https://raw.githubusercontent.com/leonamvasquez/terraview/main/assets/terraview-logo.png" alt="TerraView" width="100" />
+</p>
 
-GitHub Action for scanning Terraform plans with [TerraView](https://github.com/leonamvasquez/terraview) — static analysis + optional AI contextual analysis.
+<h1 align="center">TerraView Action</h1>
+
+<p align="center">
+  GitHub Action for scanning Terraform plans with <a href="https://github.com/leonamvasquez/terraview">TerraView</a> — static analysis + optional AI contextual analysis.
+</p>
+
+## Prerequisites
+
+The static scanner must be available on the runner before this action runs:
+
+```yaml
+# Install Checkov (default scanner)
+- run: pip install checkov
+
+# Or tfsec
+- uses: aquasecurity/tfsec-action@v1
+  # run tfsec separately, then pass findings via args: '--findings tfsec.json'
+```
+
+> If no scanner is found, TerraView degrades gracefully to AI-only analysis (requires `provider` input).
 
 ## Usage
 
@@ -31,19 +52,21 @@ GitHub Action for scanning Terraform plans with [TerraView](https://github.com/l
 
 ### Upload SARIF to GitHub Security tab
 
+When using `format: sarif`, TerraView writes `review.sarif.json` to the output directory (defaults to the working directory).
+
 ```yaml
 - name: TerraView scan (SARIF)
   uses: leonamvasquez/terraview-action@v1
   with:
     plan: plan.json
     format: sarif
-    fail-on: CRITICAL   # only block on CRITICAL
+    fail-on: CRITICAL
 
 - name: Upload SARIF
   uses: github/codeql-action/upload-sarif@v3
   if: always()
   with:
-    sarif_file: results.sarif
+    sarif_file: review.sarif.json
 ```
 
 ## Inputs
@@ -56,6 +79,7 @@ GitHub Action for scanning Terraform plans with [TerraView](https://github.com/l
 | `model` | AI model (provider-specific) | — |
 | `api-key` | AI provider API key — use a GitHub secret | — |
 | `format` | Output format: `pretty`, `json`, `sarif`, `html`, `markdown` | `pretty` |
+| `output-dir` | Directory for output files. SARIF → `review.sarif.json`, HTML → `report/` | working dir |
 | `fail-on` | Minimum severity to fail the job: `HIGH`, `CRITICAL`, `NONE` | `HIGH` |
 | `version` | TerraView version (e.g. `v0.5.0`). Defaults to latest. | `latest` |
 | `args` | Extra arguments passed verbatim to `terraview scan` | — |
@@ -97,6 +121,9 @@ jobs:
 
       - uses: hashicorp/setup-terraform@v3
 
+      - name: Install Checkov
+        run: pip install checkov
+
       - name: Terraform init & plan
         run: |
           terraform init
@@ -119,5 +146,5 @@ jobs:
         uses: github/codeql-action/upload-sarif@v3
         if: always()
         with:
-          sarif_file: results.sarif
+          sarif_file: review.sarif.json
 ```
