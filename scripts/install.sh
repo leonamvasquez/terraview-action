@@ -19,13 +19,11 @@ fi
 
 echo "Installing TerraView ${VERSION} (${OS}/${ARCH})..."
 
-# Build download URL — matches GoReleaser naming: terraview_Linux_x86_64.tar.gz
-OS_GORELEASER="$(echo "$OS" | sed 's/linux/Linux/;s/darwin/Darwin/;s/windows/Windows/')"
-ARCH_GORELEASER="$(echo "$ARCH" | sed 's/amd64/x86_64/;s/arm64/arm64/')"
+# Build download URL — matches release asset naming: terraview-linux-amd64.tar.gz
 EXT="tar.gz"
 if [ "$OS" = "windows" ]; then EXT="zip"; fi
 
-FILENAME="terraview_${OS_GORELEASER}_${ARCH_GORELEASER}.${EXT}"
+FILENAME="terraview-${OS}-${ARCH}.${EXT}"
 URL="https://github.com/leonamvasquez/terraview/releases/download/${VERSION}/${FILENAME}"
 
 TMPDIR="$(mktemp -d)"
